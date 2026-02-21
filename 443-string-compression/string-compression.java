@@ -1,32 +1,35 @@
 class Solution {
     public int compress(char[] chars) {
 
-        String newStr = "";
+        StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < chars.length; i++) {
+        int read = 0;
 
-            int count = 1;
+        while (read < chars.length) {
 
-            // count repeating characters
-            while (i < chars.length - 1 && chars[i] == chars[i + 1]) {
+            char current = chars[read];
+            int count = 0;
+
+            // count frequency
+            while (read < chars.length && chars[read] == current) {
+                read++;
                 count++;
-                i++;
             }
 
-            // add character
-            newStr += chars[i];
+            // append character
+            sb.append(current);
 
-            // add count if > 1
+            // append count if > 1
             if (count > 1) {
-                newStr += count;
+                sb.append(count);
             }
         }
 
         // copy back to original array
-        for (int i = 0; i < newStr.length(); i++) {
-            chars[i] = newStr.charAt(i);
+        for (int i = 0; i < sb.length(); i++) {
+            chars[i] = sb.charAt(i);
         }
 
-        return newStr.length();
+        return sb.length();
     }
 }
